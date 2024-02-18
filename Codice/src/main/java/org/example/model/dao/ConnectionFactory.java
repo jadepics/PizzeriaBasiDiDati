@@ -14,7 +14,7 @@ public class ConnectionFactory {
 
     static {
         // Does not work if generating a jar file
-        try (InputStream input = new FileInputStream("resources/db.properties")) {
+        try (InputStream input = new FileInputStream("Codice/src/main/resources/db.properties")) {
             Properties properties = new Properties();
             properties.load(input);
 
@@ -35,7 +35,7 @@ public class ConnectionFactory {
     public static void changeRole(Role role) throws SQLException {
         connection.close();
 
-        try (InputStream input = new FileInputStream("resources/db.properties")) {
+        try (InputStream input = new FileInputStream("Codice/src/main/resources/db.properties")) {
             Properties properties = new Properties();
             properties.load(input);
 

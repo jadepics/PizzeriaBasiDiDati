@@ -15,6 +15,7 @@ public enum Role {
     public static Role fromInt(int id) {
         for (Role type : values()) {
             if (type.getId() == id) {
+                System.out.println(type.getId());
                 return type;
             }
         }

@@ -2,6 +2,7 @@ package org.example.view;
 
 
 import org.example.model.domain.Credentials;
+import org.example.model.domain.Role;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +15,7 @@ public class LoginView {
         String username = reader.readLine();
         System.out.print("password: ");
         String password = reader.readLine();
+
 
         return new Credentials(username, password, null);
     }
