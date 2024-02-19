@@ -31,6 +31,19 @@ public class BevandeProcedureDAO implements GenericProcedureDAO<Bevande> {
                 } catch (SQLException e) {
                     throw new DAOException("Association error: " + e.getMessage());
                 }
+            case("M11"):
+                String bevanda= (String) params[1];
+
+                try{
+                    Connection conn = ConnectionFactory.getConnection();
+                    CallableStatement cs = conn.prepareCall("{call EliminaBevandaMenu(?)}");
+                    cs.setString(1, bevanda);
+                    ResultSet rs = cs.executeQuery();
+                    System.out.println("Eliminata con successo");
+                    break;
+                }catch(SQLException e){
+                    throw new DAOException("Association error: " + e.getMessage());
+                }
         }
         return bevande;
     }

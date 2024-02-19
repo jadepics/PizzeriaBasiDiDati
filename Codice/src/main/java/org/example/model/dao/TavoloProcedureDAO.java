@@ -1,6 +1,7 @@
 package org.example.model.dao;
 
 import org.example.exception.DAOException;
+import org.example.model.domain.Cameriere;
 import org.example.model.domain.Tavoli;
 
 import java.math.BigDecimal;
@@ -34,7 +35,7 @@ public class TavoloProcedureDAO implements GenericProcedureDAO<Tavoli> {
                 int idTavolo = (int) params[1];
                 try {
                     Connection conn = ConnectionFactory.getConnection();
-                    CallableStatement cs = conn.prepareCall("{call GeneraScontrino(?,?)}");
+                    CallableStatement cs = conn.prepareCall("{call AssegnaCameriereATavolo(?,?)}");
                     cs.setInt(1, idTavolo); // Imposta il parametro di input
                     cs.registerOutParameter(2, Types.DECIMAL); // Registra il parametro di output
                     cs.execute();
@@ -48,9 +49,34 @@ public class TavoloProcedureDAO implements GenericProcedureDAO<Tavoli> {
                 } catch (SQLException e) {
                     throw new DAOException("Association error: " + e.getMessage());
                 }
-
+            case("M8"):
+                Cameriere cameriere= (Cameriere) params[1];
+                idTavolo= cameriere.getIdTavolo();
+                int ID= cameriere.getID();
+                try {
+                    Connection conn = ConnectionFactory.getConnection();
+                    CallableStatement cs = conn.prepareCall("{call GeneraScontrino(?,?)}");
+                    cs.setInt(1, idTavolo); // Imposta il parametro di input
+                    cs.setInt(2, ID);
+                    cs.execute();
+                    System.out.println("Inserito con successo");
+        } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            case("M9"):
+                int Posti= (int) params[1];
+                int IDC= (int)params[2];
+                try {
+                    Connection conn = ConnectionFactory.getConnection();
+                    CallableStatement cs = conn.prepareCall("{call aggiungiNuovoTavolo(?,?)}");
+                    cs.setInt(1, Posti); // Imposta il parametro di input
+                    cs.setInt(2, IDC);
+                    cs.execute();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
         }
-        return null;
+                return null;
     }
     static void stampaListaTavoli(List<Tavoli> tavoli){
         System.out.println("------------------------------------------------------------");

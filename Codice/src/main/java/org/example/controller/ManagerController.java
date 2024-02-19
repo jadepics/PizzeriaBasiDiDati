@@ -40,11 +40,18 @@ public class ManagerController implements Controller {
                 case 5-> visualizzaStatisticheMensili();
                 case 6-> aggiuntaPizza();
                 case 7 -> aggiuntaBevanda();
-                case 8-> System.exit(0);
+                case 8-> assegnaCameriereaTavolo();
+                case 9-> aggiungiNuovoTavolo();
+                case 10-> eliminaPizza();
+                case 11-> eliminaBevanda();
+                case 12-> System.exit(0);
                 default -> throw new RuntimeException("Invalid choice");
             }
         }
     }
+
+    //todo gli elimina prodotti
+
     public void registraCliente() throws IOException {  //fatta
         procedureCode = "M1";
         Cliente cliente;
@@ -127,5 +134,51 @@ public class ManagerController implements Controller {
         }
 
     }
-//todo gli elimina prodotti
+    private void assegnaCameriereaTavolo() throws IOException {
+        procedureCode ="M8";
+        Cameriere cameriere= ManagerView.assegnaCameriereaTavolo();
+        try {
+            new TavoloProcedureDAO().execute(procedureCode,cameriere);
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+private void aggiungiNuovoTavolo() throws IOException{
+        procedureCode= "M9";
+        Tavoli tavolo = ManagerView.aggiungiNuovoTavolo();
+        int posti= tavolo.getN_posti();;
+        int cameriere= tavolo.getCameriere();
+    try {
+        new TavoloProcedureDAO().execute(procedureCode,posti, cameriere);
+    } catch (DAOException e) {
+        throw new RuntimeException(e);
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+}
+    public void eliminaPizza() throws IOException{     //fatta
+        procedureCode="M10";
+        String pizza =ManagerView.eliminaPizza();
+        try{
+            new PizzaProcedureDAO().execute(procedureCode,pizza);
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminaBevanda() throws IOException{     //fatta
+        procedureCode="M11";
+        String bevanda =ManagerView.eliminaBevanda();
+        try{
+            new BevandeProcedureDAO().execute(procedureCode,bevanda);
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

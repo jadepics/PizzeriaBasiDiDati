@@ -27,10 +27,24 @@ public class PizzaProcedureDAO implements GenericProcedureDAO<Pizza>{
                     cs.setString(1, nome);
                     cs.setFloat(2, prezzo);
                     ResultSet rs = cs.executeQuery();
+                    System.out.println("Inserita con successo");
                     break;
                 }catch(SQLException e){
                     throw new DAOException("Association error: " + e.getMessage());
             }
+            case("M10"):
+                String npizza= (String) params[1];
+
+                try{
+                    Connection conn = ConnectionFactory.getConnection();
+                    CallableStatement cs = conn.prepareCall("{call EliminaPizzaMenu(?)}");
+                    cs.setString(1, npizza);
+                    ResultSet rs = cs.executeQuery();
+                    System.out.println("Eliminata con successo");
+                    break;
+                }catch(SQLException e){
+                    throw new DAOException("Association error: " + e.getMessage());
+                }
 
         }
         return pizza;

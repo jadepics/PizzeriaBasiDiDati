@@ -22,8 +22,6 @@ public class LoginProcedureDAO implements GenericProcedureDAO<Credentials> {
             cs.registerOutParameter(3, Types.NUMERIC);
             cs.executeQuery();
             role = cs.getInt(3);
-            System.out.println("me rompo");
-            System.out.println(role);
         } catch(SQLException e) {
             throw new DAOException("Login error: " + e.getMessage());
         }

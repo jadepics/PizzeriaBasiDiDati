@@ -23,6 +23,11 @@ List<Tavoli> tavoliList =new ArrayList<>();
         this.numero = anInt;
     }
 
+    public Tavoli(int posti, int idCameriere) {
+        this.Cameriere= idCameriere;
+        this.N_posti= posti;
+    }
+
     public int getNumero() {
         return numero;
     }

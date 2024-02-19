@@ -1,8 +1,6 @@
 package org.example.view;
 
-import org.example.model.domain.Bevande;
-import org.example.model.domain.Cliente;
-import org.example.model.domain.Pizza;
+import org.example.model.domain.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +23,11 @@ public class ManagerView {
         System.out.println("5) Visualizza statistiche mensili");
         System.out.println("6) Aggiungi pizza nel menù");   //ok
         System.out.println("7) Aggiungi bevanda nel menù"); //ok
-        System.out.println("8) Quit");
+        System.out.println("8) Assegna cameriere a un tavolo");
+        System.out.println("9) Inserisci tavolo");
+        System.out.println("10) Elimina pizza dal menù");
+        System.out.println("11) Elimina bevanda dal menù");
+        System.out.println("12) Quit");
 
 
         Scanner input = new Scanner(System.in);
@@ -33,7 +35,7 @@ public class ManagerView {
         while (true) {
             System.out.print("Please enter your choice: ");
             choice = input.nextInt();
-            if (choice >= 1 && choice <= 8) {
+            if (choice >= 1 && choice <= 12) {
                 break;
             }
             System.out.println("Invalid option");
@@ -80,7 +82,7 @@ public class ManagerView {
 
         return bevanda;
     }
-    public static int generaScontrino() throws IOException {    //per generare scontrino inserisce numero
+    public static int generaScontrino() throws IOException {    //per generare scontrino inserisce numero tavolo
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("numero tavolo: ");
         int tavolo = Integer.parseInt(reader.readLine());
@@ -88,7 +90,7 @@ public class ManagerView {
         return tavolo;
     }
 
-    public static int cercaScontrinoPerMese() throws IOException {      //ok
+    public static int cercaScontrinoPerMese() throws IOException {      //ok statistiche mensili
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("mese (inserire il numero): ");
@@ -96,7 +98,7 @@ public class ManagerView {
 
         return mese;
     }
-    public static String cercaScontrinoPerGiorno() throws IOException {     //ok
+    public static String cercaScontrinoPerGiorno() throws IOException {     //ok statistiche mensili
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Data (YYYY-MM-DD): ");
         String giorno = (reader.readLine());
@@ -105,6 +107,40 @@ public class ManagerView {
         return giorno;
     }
 
+public static Cameriere assegnaCameriereaTavolo() throws IOException{
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    System.out.print("Inserisci numero Tavolo: ");
+    int idTavolo= Integer.parseInt((reader.readLine()));
+    System.out.print("Inserisci ID cameriere: ");
+    int idCameriere = Integer.parseInt(reader.readLine());
+    Cameriere cameriere = new Cameriere(idTavolo,idCameriere);
+    return cameriere;
+}
+public static Tavoli aggiungiNuovoTavolo() throws IOException{
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    System.out.print("Inserisci posti disponibili: ");
+    int posti = Integer.parseInt(reader.readLine());
+    System.out.print("Inserisci ID cameriere: ");
+    int idCameriere = Integer.parseInt(reader.readLine());
 
+    Tavoli tavolo = new Tavoli(posti, idCameriere);
+    return tavolo;
+}
+
+    public static String eliminaPizza() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Inserisci il nome della pizza da eliminare: ");
+        String pizza= reader.readLine();
+        return pizza;
+    }
+    public static String eliminaBevanda() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Inserisci il nome della bevanda da eliminare: ");
+        String bevanda= reader.readLine();
+        return bevanda;
+    }
+
+    //cancella cliente
+    //segna scontrino come pagato
 }
 

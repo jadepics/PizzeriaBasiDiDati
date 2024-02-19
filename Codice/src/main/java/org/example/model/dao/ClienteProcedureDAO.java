@@ -29,7 +29,9 @@ public class ClienteProcedureDAO implements GenericProcedureDAO<Cliente> {
                     cs.setString(2, cognomeCliente);
                     cs.setInt(3, numeroPersone);
                     ResultSet rs = cs.executeQuery();
-
+                    System.out.println("Inserito con successo \n");
+                    while (rs.next()){
+                    System.out.println(rs.getInt("ID Tavolo"));}
                     break;
                 }catch(SQLException e) {
                     throw new DAOException("Association error: " + e.getMessage());
