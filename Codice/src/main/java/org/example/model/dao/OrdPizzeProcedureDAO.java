@@ -24,10 +24,11 @@ public class OrdPizzeProcedureDAO implements GenericProcedureDAO<PizzaOrd> {
                     ResultSet rs = cs.executeQuery();
                     List<PizzaOrd> pizzeDaPrep = new ArrayList<>();
                     while (rs.next()) {
-                        pizzaOrd = new PizzaOrd(rs.getInt(1), rs.getString(2));
+                        pizzaOrd = new PizzaOrd(rs.getString(1),rs.getInt(2) );
                         pizzeDaPrep.add(pizzaOrd);
                     }
                     stampaPizze(pizzeDaPrep);
+                    break;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -43,6 +44,7 @@ public class OrdPizzeProcedureDAO implements GenericProcedureDAO<PizzaOrd> {
                     cs.setInt(3,quantità);
                    cs.executeQuery();
                    System.out.println("Stato comanda aggiornato");
+                    break;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -58,8 +60,8 @@ public class OrdPizzeProcedureDAO implements GenericProcedureDAO<PizzaOrd> {
 
         for (PizzaOrd pizzaOrd : pizzeDaPrep) {
             System.out.printf("| %-10s | %-10s |\n",
-                    pizzaOrd.getQuantita() != 0 ? String.valueOf(pizzaOrd.getQuantita()) : "null",
-                    pizzaOrd.getNomePizza() != null ? pizzaOrd.getNomePizza() : "null");
+                    pizzaOrd.getNomePizza() != null ? pizzaOrd.getNomePizza() : "null",
+                    pizzaOrd.getQuantita() != 0 ? String.valueOf(pizzaOrd.getQuantita()) : "null");
         }
     }
 }

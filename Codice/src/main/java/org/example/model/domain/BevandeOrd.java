@@ -5,7 +5,7 @@ import java.util.Date;
 public class BevandeOrd {
     int quantita;
 
-    public BevandeOrd(int quantita, String nomeBevanda) {
+    public BevandeOrd( String nomeBevanda,int quantita) {
         this.quantita=quantita;
         this.nomeBevanda=nomeBevanda;
     }

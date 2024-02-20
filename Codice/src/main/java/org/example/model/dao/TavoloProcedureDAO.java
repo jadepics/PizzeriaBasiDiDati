@@ -35,7 +35,7 @@ public class TavoloProcedureDAO implements GenericProcedureDAO<Tavoli> {
                 int idTavolo = (int) params[1];
                 try {
                     Connection conn = ConnectionFactory.getConnection();
-                    CallableStatement cs = conn.prepareCall("{call AssegnaCameriereATavolo(?,?)}");
+                    CallableStatement cs = conn.prepareCall("{call GeneraScontrino(?,?)}");
                     cs.setInt(1, idTavolo); // Imposta il parametro di input
                     cs.registerOutParameter(2, Types.DECIMAL); // Registra il parametro di output
                     cs.execute();
@@ -45,6 +45,7 @@ public class TavoloProcedureDAO implements GenericProcedureDAO<Tavoli> {
 
                     System.out.println("Totale scontrino: ");
                     System.out.println(totale);
+                    break;
 
                 } catch (SQLException e) {
                     throw new DAOException("Association error: " + e.getMessage());
@@ -55,12 +56,13 @@ public class TavoloProcedureDAO implements GenericProcedureDAO<Tavoli> {
                 int ID= cameriere.getID();
                 try {
                     Connection conn = ConnectionFactory.getConnection();
-                    CallableStatement cs = conn.prepareCall("{call GeneraScontrino(?,?)}");
+                    CallableStatement cs = conn.prepareCall("{call AssegnaCameriereATavolo(?,?)}");
                     cs.setInt(1, idTavolo); // Imposta il parametro di input
                     cs.setInt(2, ID);
                     cs.execute();
                     System.out.println("Inserito con successo");
-        } catch (SQLException e) {
+                    break;
+                } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
             case("M9"):
@@ -72,11 +74,26 @@ public class TavoloProcedureDAO implements GenericProcedureDAO<Tavoli> {
                     cs.setInt(1, Posti); // Imposta il parametro di input
                     cs.setInt(2, IDC);
                     cs.execute();
+                    break;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+
+        case("M14"):
+        try {
+            Connection conn = ConnectionFactory.getConnection();
+            CallableStatement cs = conn.prepareCall("{call TavoliCheDevonoPagare()}");
+            ResultSet rs= cs.executeQuery();
+            while (rs.next()){
+                System.out.println(rs.getInt(1));
+                }
+            break;
         }
-                return null;
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        }
+        return null;
     }
     static void stampaListaTavoli(List<Tavoli> tavoli){
         System.out.println("------------------------------------------------------------");

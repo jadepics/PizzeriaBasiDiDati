@@ -54,8 +54,8 @@ public class CameriereView {
         System.out.print("quantità bevanda: ");
         int quantitaBev = Integer.parseInt((reader.readLine()));
         comanda= new Comanda(null, idTavolo, 0);
-        bevandeOrd= new BevandeOrd(quantitaBev, bevanda);
-        pizzaOrd= new PizzaOrd(quantita, pizza);
+        bevandeOrd= new BevandeOrd( bevanda,quantitaBev);
+        pizzaOrd= new PizzaOrd(pizza, quantita);
         comandaResult= new ComandaResult(comanda, bevandeOrd, pizzaOrd);
 
         return comandaResult;

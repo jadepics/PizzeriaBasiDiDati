@@ -11,7 +11,7 @@ public class PizzaOrd {
     String data_comanda;
     String nomePizza;
 
-    public PizzaOrd(int quantita, String nomePizza) {
+    public PizzaOrd( String nomePizza, int quantita) {
         this.nomePizza=nomePizza;
         this.quantita=quantita;
     }

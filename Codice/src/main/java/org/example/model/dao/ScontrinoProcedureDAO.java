@@ -1,6 +1,7 @@
 package org.example.model.dao;
 
 import org.example.exception.DAOException;
+import org.example.model.domain.Cameriere;
 import org.example.model.domain.Scontrino;
 
 import java.sql.*;
@@ -55,6 +56,19 @@ public class ScontrinoProcedureDAO implements GenericProcedureDAO<Scontrino> {
                     throw new DAOException("Association error: " + e.getMessage());
                 }
 
+            case("M13"):
+                int idTavolo = (int) params[1];
+
+                try {
+                    Connection conn = ConnectionFactory.getConnection();
+                    CallableStatement cs = conn.prepareCall("{call segnaTavoloPagato(?)}");
+                    cs.setInt(1, idTavolo); // Imposta il parametro di input
+                    cs.execute();
+                    System.out.println("Scontrino salvato come pagato");
+                    break;
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
 
         }
         return scontrino;

@@ -27,7 +27,10 @@ public class ManagerView {
         System.out.println("9) Inserisci tavolo");
         System.out.println("10) Elimina pizza dal menù");
         System.out.println("11) Elimina bevanda dal menù");
-        System.out.println("12) Quit");
+        System.out.println("12) Cancella cliente");
+        System.out.println("13) Segna scontrino come pagato");
+        System.out.println("14) Visualizza tavoli che devono pagare");
+        System.out.println("15) Quit");
 
 
         Scanner input = new Scanner(System.in);
@@ -35,7 +38,7 @@ public class ManagerView {
         while (true) {
             System.out.print("Please enter your choice: ");
             choice = input.nextInt();
-            if (choice >= 1 && choice <= 12) {
+            if (choice >= 1 && choice <= 15) {
                 break;
             }
             System.out.println("Invalid option");
@@ -53,11 +56,12 @@ public class ManagerView {
         String cognome = reader.readLine();
         System.out.print("numero persone portate: ");
         int numPersone = Integer.parseInt(reader.readLine());
-        String input = reader.readLine();
+
 
         cliente = new Cliente(nome, cognome, numPersone, 0);
         return cliente;
     }
+
     public static Pizza aggiuntaPizza() throws IOException {
         Pizza pizza;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -70,6 +74,7 @@ public class ManagerView {
 
         return pizza;
     }
+
     public static Bevande aggiuntaBevanda() throws IOException {
         Bevande bevanda;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -82,6 +87,7 @@ public class ManagerView {
 
         return bevanda;
     }
+
     public static int generaScontrino() throws IOException {    //per generare scontrino inserisce numero tavolo
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("numero tavolo: ");
@@ -98,6 +104,7 @@ public class ManagerView {
 
         return mese;
     }
+
     public static String cercaScontrinoPerGiorno() throws IOException {     //ok statistiche mensili
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Data (YYYY-MM-DD): ");
@@ -107,40 +114,59 @@ public class ManagerView {
         return giorno;
     }
 
-public static Cameriere assegnaCameriereaTavolo() throws IOException{
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    System.out.print("Inserisci numero Tavolo: ");
-    int idTavolo= Integer.parseInt((reader.readLine()));
-    System.out.print("Inserisci ID cameriere: ");
-    int idCameriere = Integer.parseInt(reader.readLine());
-    Cameriere cameriere = new Cameriere(idTavolo,idCameriere);
-    return cameriere;
-}
-public static Tavoli aggiungiNuovoTavolo() throws IOException{
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    System.out.print("Inserisci posti disponibili: ");
-    int posti = Integer.parseInt(reader.readLine());
-    System.out.print("Inserisci ID cameriere: ");
-    int idCameriere = Integer.parseInt(reader.readLine());
+    public static Cameriere assegnaCameriereaTavolo() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Inserisci numero Tavolo: ");
+        int idTavolo = Integer.parseInt((reader.readLine()));
+        System.out.print("Inserisci ID cameriere: ");
+        int idCameriere = Integer.parseInt(reader.readLine());
+        Cameriere cameriere = new Cameriere(idTavolo, idCameriere);
+        return cameriere;
+    }
 
-    Tavoli tavolo = new Tavoli(posti, idCameriere);
-    return tavolo;
-}
+    public static Tavoli aggiungiNuovoTavolo() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Inserisci posti disponibili: ");
+        int posti = Integer.parseInt(reader.readLine());
+        System.out.print("Inserisci ID cameriere: ");
+        int idCameriere = Integer.parseInt(reader.readLine());
+
+        Tavoli tavolo = new Tavoli(posti, idCameriere);
+        return tavolo;
+    }
 
     public static String eliminaPizza() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Inserisci il nome della pizza da eliminare: ");
-        String pizza= reader.readLine();
+        String pizza = reader.readLine();
         return pizza;
     }
+
     public static String eliminaBevanda() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Inserisci il nome della bevanda da eliminare: ");
-        String bevanda= reader.readLine();
+        String bevanda = reader.readLine();
         return bevanda;
     }
 
-    //cancella cliente
-    //segna scontrino come pagato
+    public static Cliente cancellaCliente() throws IOException {        //ok todo che torni il tavolo assegnato
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("nome cliente: ");
+        String nome = reader.readLine();
+        System.out.print("cognome cliente: ");
+        String cognome = reader.readLine();
+        Cliente cliente1 = new Cliente(nome, cognome);
+        return cliente1;
+        //segna scontrino come pagato
+    }
+    public static int segnaScontrinoPagato() throws IOException {    //per generare scontrino inserisce numero tavolo
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("numero tavolo: ");
+        int tavolo = Integer.parseInt(reader.readLine());
+
+        return tavolo;
+    }
+
 }
 

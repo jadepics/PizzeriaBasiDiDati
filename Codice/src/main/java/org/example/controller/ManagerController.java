@@ -44,7 +44,10 @@ public class ManagerController implements Controller {
                 case 9-> aggiungiNuovoTavolo();
                 case 10-> eliminaPizza();
                 case 11-> eliminaBevanda();
-                case 12-> System.exit(0);
+                case 12-> cancellaCLiente();
+                case 13-> segnaScontrinoPagato();
+                case 14-> visualizzaTavoliDevonoPagare();
+                case 15-> System.exit(0);
                 default -> throw new RuntimeException("Invalid choice");
             }
         }
@@ -180,5 +183,34 @@ private void aggiungiNuovoTavolo() throws IOException{
             throw new RuntimeException(e);
         }
     }
-
+    public  void cancellaCLiente() throws IOException{
+        procedureCode= "M12";
+        Cliente cliente= ManagerView.cancellaCliente();
+        try{
+            new ClienteProcedureDAO().execute(procedureCode, cliente);
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public  void segnaScontrinoPagato() throws IOException{
+        procedureCode= "M13";
+        int tavolo= ManagerView.segnaScontrinoPagato();
+        try{
+            new ScontrinoProcedureDAO().execute(procedureCode, tavolo);
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public  void visualizzaTavoliDevonoPagare() throws  IOException{
+        procedureCode="M14";
+        try{
+            new TavoloProcedureDAO().execute(procedureCode);
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

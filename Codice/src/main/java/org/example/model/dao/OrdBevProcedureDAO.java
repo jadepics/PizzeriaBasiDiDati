@@ -24,10 +24,11 @@ public class OrdBevProcedureDAO implements GenericProcedureDAO<BevandeOrd>{
                     ResultSet rs = cs.executeQuery();
                     List<BevandeOrd> bevandeDaPrep = new ArrayList<>();
                     while (rs.next()) {
-                        bevandeOrd = new BevandeOrd(rs.getInt(1), rs.getString(2));
+                        bevandeOrd = new BevandeOrd( rs.getString(1),rs.getInt(2));
                         bevandeDaPrep.add(bevandeOrd);
                     }
                     stampaBevande(bevandeDaPrep);
+                    break;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -43,6 +44,7 @@ public class OrdBevProcedureDAO implements GenericProcedureDAO<BevandeOrd>{
                     cs.setInt(3,quantità);
                     cs.executeQuery();
                     System.out.println("Stato comanda aggiornato");
+                    break;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -58,8 +60,8 @@ public class OrdBevProcedureDAO implements GenericProcedureDAO<BevandeOrd>{
 
         for (BevandeOrd bevandeOrd : bevandeDaPrep) {
             System.out.printf("| %-10s | %-10s |\n",
-                    bevandeOrd.getQuantita() != 0 ? String.valueOf(bevandeOrd.getQuantita()) : "null",
-                    bevandeOrd.getNomeBevanda() != null ? bevandeOrd.getNomeBevanda() : "null");
+                    bevandeOrd.getNomeBevanda() != null ? bevandeOrd.getNomeBevanda() : "null",
+                    bevandeOrd.getQuantita() != 0 ? String.valueOf(bevandeOrd.getQuantita()) : "null");
         }
     }
 }

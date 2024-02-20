@@ -7,6 +7,12 @@ public class Cliente {
     String cognomeCliente;
     int numeroPersone;
     int tavolo;
+
+    public Cliente(String nome, String cognome) {
+        this.nomeCliente = nome;
+        this.cognomeCliente = cognome;
+    }
+
     public String getNomeCliente() {
         return nomeCliente;
     }
